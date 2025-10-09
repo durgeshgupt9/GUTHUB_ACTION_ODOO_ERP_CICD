@@ -25,7 +25,8 @@ jobs:
 
       - name: Run pylint-odoo
         run: |
-          pylint --load-plugins=pylint_odoo web_monitor/
+          pylint --load-plugins=pylint_odoo web_monitor/ | tee pylint.log
+          grep -q ":\sE" pylint.log && exit 1 || exit 0
   
   deploy:
     name: Deploy to Odoo Server
