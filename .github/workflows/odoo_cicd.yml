@@ -25,8 +25,19 @@ jobs:
 
       - name: Run pylint-odoo
         run: |
-          pylint --load-plugins=pylint_odoo web_monitor/ | tee pylint.log
-          grep -q ":\sE" pylint.log && echo "Errors found" || echo "Clean"
+          # Run pylint with the odoo plugin, focusing on XML and Odoo issues
+          pylint --load-plugins=pylint_odoo --disable=C0111 --disable=C0301 --disable=E0401 --disable=R0903 --disable=W0401 web_monitor/ | tee pylint.log
+
+          # Check for any XML errors in the Odoo views or data files
+          if grep -q ":\sE" pylint.log; then
+            echo "Errors found in Odoo module (including XML)" && exit 1
+          fi
+
+          if grep -q ":\sW" pylint.log; then
+            echo "Warnings found in Odoo module" && exit 0
+          fi
+
+          echo "Clean: No issues found in Odoo module (including XML)"
 
   
   deploy:
