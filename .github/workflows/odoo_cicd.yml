@@ -52,6 +52,6 @@ jobs:
           ssh -i ~/.ssh/deploy_key.pem -o StrictHostKeyChecking=no ${{secrets.SSH_USERNAME}}@${{secrets.SSH_IP}}<< 'EOF'
           sudo docker restart gifted_hamilton    
           sleep 5
-          sudo docker exec -u odoo gifted_hamilton \
-            odoo -c /etc/odoo/odoo.conf -d demo -u web_monitor --stop-after-init
+          # sudo docker exec -u odoo gifted_hamilton \
+          #   /usr/bin/odoo -c /etc/odoo/odoo.conf -d demo -u web_monitor --stop-after-init
           EOF
