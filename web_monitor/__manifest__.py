@@ -1,4 +1,4 @@
-{
+
     'name': 'Website Monitor',
     'version': '17.0.1.0.0',  # If your module is for Odoo 17.0
     'category': 'Tools',
