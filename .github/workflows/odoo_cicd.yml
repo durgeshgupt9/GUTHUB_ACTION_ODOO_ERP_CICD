@@ -48,7 +48,7 @@ jobs:
 
       - name: Deploy with scp
         run: |
-          scp -i ~/.ssh/deploy_key.pem -o StrictHostKeyChecking=no ./web_monitor/ ${{secrets.SSH_USERNAME}}@${{secrets.SSH_IP}}:/opt/odoo-custom-addons/web_monitor/
+          scp -r -i ~/.ssh/deploy_key.pem -o StrictHostKeyChecking=no ./web_monitor/ ${{secrets.SSH_USERNAME}}@${{secrets.SSH_IP}}:/opt/odoo-custom-addons/web_monitor/
           ssh -i ~/.ssh/deploy_key.pem -o StrictHostKeyChecking=no ${{secrets.SSH_USERNAME}}@${{secrets.SSH_IP}}<< 'EOF'
           docker restart gifted_hamilton    
           sleep 5
